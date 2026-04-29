@@ -1,3 +1,12 @@
+const getRandomInteger = (a, b) => {
+  const lower = Math.ceil(Math.min(a, b));
+  const upper = Math.floor(Math.max(a, b));
+  const result = lower + Math.random() * (upper - lower + 1);
+  return Math.floor(result);
+};
+
+const getRandomArrayElement = (elements) => elements[getRandomInteger(0, elements.length - 1)];
+
 const checkStringLength = (string = '', maxLength = 1) => string.length <= maxLength;
 
 checkStringLength('проверяемая строка', 20);
@@ -34,3 +43,5 @@ getDigits('1nxhbg2');
 getDigits(-1.5);
 getDigits(0);
 getDigits('1 кефир, 0.5 батона');
+
+export { getRandomInteger, getRandomArrayElement };
