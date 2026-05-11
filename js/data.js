@@ -3,7 +3,7 @@ import { getRandomInteger, getRandomArrayElement } from './util.js';
 const PHOTOS_NUMBER = 25;
 const MIN_LIKES_NUMBER = 15;
 const MAX_LIKES_NUMBER = 200;
-const MIN_AVATARS_NUMBER = 0;
+const MIN_AVATARS_NUMBER = 1;
 const MAX_AVATARS_NUMBER = 6;
 const MIN_COMMENTS_NUMBER = 0;
 const MAX_COMMENTS_NUMBER = 30;
@@ -53,7 +53,6 @@ const createComments = () => {
   return Array.from({length: randomCommentsNumber}, createComment);
 };
 
-
 const createPhoto = (index) => ({
   id: index + 1,
   url: `photos/${index + 1}.jpg`,
@@ -62,6 +61,6 @@ const createPhoto = (index) => ({
   comments: createComments(),
 });
 
-const generatePhotos = () => Array.from({length: PHOTOS_NUMBER}, (_, index) => createPhoto(index));
+const photos = Array.from({length: PHOTOS_NUMBER}, (_, index) => createPhoto(index));
 
-export { generatePhotos };
+export { photos };
