@@ -5,7 +5,7 @@ const findPictureById = (id) => photos.find((item) => +item.id === +id);
 const INITIAL_COMMENTS_NUMBER = 5;
 
 const previewElement = document.querySelector('.big-picture');
-const previewCloseButton = previewElement.querySelector('.big-picture__cancel');
+const previewCloseButtonElement = previewElement.querySelector('.big-picture__cancel');
 const previewImageElement = previewElement.querySelector('.big-picture__img img');
 const previewCaptionElement = previewElement.querySelector('.social__caption');
 const previewLikesElement = previewElement.querySelector('.likes-count');
@@ -14,7 +14,7 @@ const previewCommentsContainer = previewElement.querySelector('.social__comments
 const previewShownCommentsElement = previewElement.querySelector('.social__comment-shown-count');
 const previewTotalCommentsElement = previewElement.querySelector('.social__comment-total-count');
 const previewCommentsCounterElement = previewElement.querySelector('.social__comment-count');
-const previewCommentsLoaderButton = previewElement.querySelector('.comments-loader');
+const previewCommentsLoaderElement = previewElement.querySelector('.comments-loader');
 const commentTemplate = document.querySelector('#social-comment').content.querySelector('.social__comment');
 
 let previewComments = [];
@@ -44,13 +44,13 @@ const renderCommentsSlice = (a, b) => {
   if (shownCommentsNumber < previewComments.length) {
     previewShownCommentsElement.textContent = shownCommentsNumber;
     previewTotalCommentsElement.textContent = previewComments.length;
-    previewCommentsLoaderButton.addEventListener('click', commentsLoaderHandler);
+    previewCommentsLoaderElement.addEventListener('click', commentsLoaderHandler);
   }
 
   if (shownCommentsNumber >= previewComments.length) {
     previewCommentsCounterElement.classList.add('hidden');
-    previewCommentsLoaderButton.classList.add('hidden');
-    previewCommentsLoaderButton.removeEventListener('click', commentsLoaderHandler);
+    previewCommentsLoaderElement.classList.add('hidden');
+    previewCommentsLoaderElement.removeEventListener('click', commentsLoaderHandler);
   }
 };
 
@@ -64,7 +64,7 @@ const renderComments = (comments) => {
   if (comments.length === 0) {
     previewCommentsContainer.innerHTML = '<li class="social__comment">Комментариев нет</li>';
     previewCommentsCounterElement.classList.add('hidden');
-    previewCommentsLoaderButton.classList.add('hidden');
+    previewCommentsLoaderElement.classList.add('hidden');
     return;
   }
 
@@ -80,11 +80,11 @@ const closePreview = () => {
   previewElement.classList.add('hidden');
   document.body.classList.remove('modal-open');
   previewCommentsCounterElement.classList.remove('hidden');
-  previewCommentsLoaderButton.classList.remove('hidden');
+  previewCommentsLoaderElement.classList.remove('hidden');
 
-  previewCloseButton.removeEventListener('click', previewCloseHandler);
+  previewCloseButtonElement.removeEventListener('click', previewCloseHandler);
   document.removeEventListener('keydown', previewEscHandler);
-  previewCommentsLoaderButton.removeEventListener('click', commentsLoaderHandler);
+  previewCommentsLoaderElement.removeEventListener('click', commentsLoaderHandler);
 };
 
 function previewCloseHandler () {
@@ -98,7 +98,7 @@ function previewEscHandler (evt) {
   }
 }
 
-const renderPreview = ({url, description, likes, comments}) => {
+const openPreview = ({url, description, likes, comments}) => {
   previewElement.classList.remove('hidden');
   document.body.classList.add('modal-open');
 
@@ -109,16 +109,17 @@ const renderPreview = ({url, description, likes, comments}) => {
 
   renderComments(comments);
 
-  previewCloseButton.addEventListener('click', previewCloseHandler);
+  previewCloseButtonElement.addEventListener('click', previewCloseHandler);
   document.addEventListener('keydown', previewEscHandler);
 };
 
-const pictureClickHandler = (evt) => {
-  evt.preventDefault();
 
+// можно перенести в галерею
+const pictureClickHandler = (evt) => {
   if (evt.target.closest('.picture')) {
+    evt.preventDefault();
     const targetPicture = findPictureById(evt.target.closest('.picture').dataset.id);
-    renderPreview(targetPicture);
+    openPreview(targetPicture);
   }
 };
 
