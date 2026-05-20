@@ -7,7 +7,6 @@ const scaleControlValue = imageFormElement.querySelector('.scale__control--value
 const hashtagInputElement = imageFormElement.querySelector('[name=hashtags]');
 const descriptionInputElement = imageFormElement.querySelector('[name=description]');
 const uploadCancelButtonElement = imageFormElement.querySelector('#upload-cancel');
-// const uploadSubmitButtonElement = imageFormElement.querySelector('#upload-submit');
 const imageOverlayElement = imageFormElement.querySelector('.img-upload__overlay');
 const effectSliderElement = imageFormElement.querySelector('.effect-level__slider');
 const effectLevelInputElement = imageFormElement.querySelector('.effect-level__value');
